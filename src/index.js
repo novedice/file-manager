@@ -1,10 +1,7 @@
 import { stdin, stdout } from "process";
 import { homedir } from "os";
 import readline from "node:readline/promises";
-import { EventEmitter } from "events";
 import { showCurDir } from "./functions/showCurrentDirectory.js";
-import { fileURLToPath } from "url";
-import path from "path";
 import { cdUp } from "./functions/cdUp.js";
 import { ls } from "./functions/ls.js";
 import { cdCd } from "./functions/cdCd.js";
@@ -26,9 +23,7 @@ if (args.length) {
 }
 console.log(`Welcome to the File Manager, ${currentUserName}!`);
 showCurDir();
-// const eventEmitter = new EventEmitter();
 
-// eventEmitter.on("up", cdUp);
 const rl = readline.createInterface(stdin, stdout);
 
 rl.addListener("close", () => {

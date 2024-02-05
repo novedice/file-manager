@@ -11,6 +11,7 @@ export const addFile = async (input) => {
       .filter((thePath) => thePath !== " ");
 
     await fsPromises.appendFile(pathResolver(fileName[0]), "", { flag: "ax" });
+
     showCurDir();
   } catch {
     console.log("Operation failed");

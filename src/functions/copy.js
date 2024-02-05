@@ -1,33 +1,19 @@
 import { showCurDir } from "./showCurrentDirectory.js";
-import fsPromises from "fs/promises";
+import fs from "fs";
+import { pathResolver } from "./pathResolver.js";
 
 export const copyFile = async (input) => {
-  console.log(
-    "cp ",
-    input
-      .split(" ")
-      .slice(1)
-      .filter((path) => path !== " ")
-  );
   const pathesArr = input
     .split(" ")
     .slice(1)
     .filter((path) => path !== " ");
   try {
-    const sourcePath = pathesArr[0];
-    const newPath = pathesArr[1];
+    const sourcePath = pathResolver(pathesArr[0]);
+    const destPath = pathResolver(pathesArr[1]);
 
-    console.log("oldpath", sourcePath);
-    console.log("newpath", newPath);
+    let writer = fs.createWriteStream(destPath, { flags: "w" });
+    let reader = fs.createReadStream(sourcePath).pipe(writer);
 
-    // await fsPromises.mkdir(newPath);
-
-    // const filesToCopy = await fsPromises.readdir(sourcePath);
-    // console.log("files", filesToCopy);
-
-    // for (let file of filesToCopy) {
-    await fsPromises.copyFile(sourcePath, newPath);
-    // }
     showCurDir();
   } catch {
     console.log("Operation failed");
