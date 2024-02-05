@@ -12,7 +12,11 @@ export const copyFile = async (input) => {
     const destPath = pathResolver(pathesArr[1]);
 
     let writer = fs.createWriteStream(destPath, { flags: "w" });
-    let reader = fs.createReadStream(sourcePath).pipe(writer);
+    writer.on("error", () => console.log("Operation failed"));
+    let reader = fs.createReadStream(sourcePath);
+    reader.on("error", () => console.log("Operation failed"));
+
+    reader.pipe(writer);
 
     showCurDir();
   } catch {
