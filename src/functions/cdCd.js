@@ -1,17 +1,12 @@
-import { currentDir } from "../index.js";
+import { showCurDir } from "./showCurrentDirectory.js";
+import { resolve } from "path";
 
-export const cdCd = (input) => {
+export const cdCd = async (input) => {
   const pathToDir = input.split(" ").slice(1);
-  console.log("cd:", pathToDir);
   try {
-    process.chdir(pathToDir[0]);
-    currentDir.map((val, index) => {
-      if (index === 0) {
-        return pathToDir[0];
-      }
-    });
-    console.log("you are in ", currentDir[0]);
+    process.chdir(resolve(process.cwd(), pathToDir[0]));
+    await showCurDir();
   } catch {
-    console.log("operation fail");
+    console.log("Operation failed");
   }
 };

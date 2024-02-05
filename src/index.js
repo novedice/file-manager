@@ -8,9 +8,14 @@ import path from "path";
 import { cdUp } from "./functions/cdUp.js";
 import { ls } from "./functions/ls.js";
 import { cdCd } from "./functions/cdCd.js";
+import { deleteFile } from "./functions/delete.js";
+import { moveFile } from "./functions/move.js";
+import { renameFile } from "./functions/rn.js";
+import { copyFile } from "./functions/copy.js";
+import { readAndPrint } from "./functions/cat.js";
+import { addFile } from "./functions/add.js";
 
 let currentUserName = "Anonimous";
-export const currentDir = [homedir()];
 
 process.chdir(homedir());
 
@@ -20,8 +25,6 @@ if (args.length) {
   currentUserName = nameArr[1];
 }
 console.log(`Welcome to the File Manager, ${currentUserName}!`);
-console.log("homedir:", homedir());
-console.log("curDir", currentDir[0]);
 showCurDir();
 // const eventEmitter = new EventEmitter();
 
@@ -44,5 +47,23 @@ rl.addListener("line", (input) => {
   }
   if (trimmedInput.includes("cd")) {
     cdCd(trimmedInput);
+  }
+  if (trimmedInput.includes("rm")) {
+    deleteFile(trimmedInput);
+  }
+  if (trimmedInput.includes("mv")) {
+    moveFile(trimmedInput);
+  }
+  if (trimmedInput.includes("rn")) {
+    renameFile(trimmedInput);
+  }
+  if (trimmedInput.includes("cp")) {
+    copyFile(trimmedInput);
+  }
+  if (trimmedInput.includes("cat")) {
+    readAndPrint(trimmedInput);
+  }
+  if (trimmedInput.includes("add")) {
+    addFile(trimmedInput);
   }
 });
